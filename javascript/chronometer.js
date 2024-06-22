@@ -3,15 +3,12 @@ class Chronometer {
     // ... your code goes here
     this.tiempoActual = 0;
     this.idIntervalo = null;
-    //this.modoMilliseconds = false;
-
+    this.tiempoActual = 3590000;
   }
 
   start(callback) {
     // ... your code goes here
     if (!this.idIntervalo) {
-      console.log("start")
-      //this.tiempoActual = 0;
       this.intervalo = 10;
       this.idIntervalo = setInterval(() => {
         {
@@ -26,7 +23,10 @@ class Chronometer {
     // ... your code goes here
     let m = 0;
     m = Math.floor((this.tiempoActual / 1000) / 60);
-    if (m > 59) m = 0;
+    if (m > 59){
+      m = 0;
+      this.tiempoActual = 0;
+    }
     return m;
   }
 
@@ -34,7 +34,9 @@ class Chronometer {
     // ... your code goes here
     let s = 0;
     s = Math.floor((this.tiempoActual / 1000) % 60);
-    if (s > 59) s = 0;
+    if (s > 59) {
+      s = 0;
+    }
     return s;
   }
 

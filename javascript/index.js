@@ -75,8 +75,6 @@ function clearSplits() {
     for (i=count-1;i>-1;i--){
       s[i].closest("#splits").removeChild(s[i]);
     }
-      
-    //s.children.clear;
   }
 }
 
