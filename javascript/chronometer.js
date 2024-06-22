@@ -3,7 +3,7 @@ class Chronometer {
     // ... your code goes here
     this.tiempoActual = 0;
     this.idIntervalo = null;
-    this.tiempoActual = 3590000;
+    this.tiempoActual = 0;
   }
 
   start(callback) {
