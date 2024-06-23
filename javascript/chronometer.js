@@ -1,9 +1,8 @@
 class Chronometer {
   constructor() {
     // ... your code goes here
-    this.tiempoActual = 0;
+    this.tiempoActual =0 ;
     this.idIntervalo = null;
-    this.tiempoActual = 0;
   }
 
   start(callback) {
@@ -23,9 +22,9 @@ class Chronometer {
     // ... your code goes here
     let m = 0;
     m = Math.floor((this.tiempoActual / 1000) / 60);
-    if (m > 59){
-      m = 0;
-      this.tiempoActual = 0;
+    if (m > 59) {
+      m = 0;//reinicia minutero
+      this.tiempoActual = 0; //limite crono=1hora => reiniciar contador
     }
     return m;
   }
@@ -35,27 +34,23 @@ class Chronometer {
     let s = 0;
     s = Math.floor((this.tiempoActual / 1000) % 60);
     if (s > 59) {
-      s = 0;
+      s = 0;;//reinicia segundero
     }
     return s;
   }
 
   getMilliseconds() {
     // ... your code goes here
-    let ms = 0;
-    let sec = this.getSeconds();
-    let min = this.getMinutes();
-    ms = Math.floor(this.tiempoActual - (((min * 60) * 1000) + (sec * 1000)));
-    return ms;
+    return (this.tiempoActual % 1000);
   }
 
   computeTwoDigitNumber(value) {
     // ... your code goes here
     let digit = "00";
     if (value) {
-      let s= value.toString();
+      let s = value.toString();
       if (s.length < 2) {
-        digit = "0" +s;
+        digit = "0" + s;
       } else if (s.length === 2) {
         digit = s;
       } else if (s.length > 2) {
@@ -82,7 +77,7 @@ class Chronometer {
 
   split() {
     // ... your code goes here
-    let ms = this.getMilliseconds();
+    let ms = this.getMilliseconds() / this.getMillisecondsDigitFactor();
     let s = this.getSeconds();
     let m = this.getMinutes();
     let instante = this.computeTwoDigitNumber(m);
@@ -90,8 +85,41 @@ class Chronometer {
     instante += ":" + this.computeTwoDigitNumber(ms);
     return instante
   }
+  setMillisecondsDigit(digits123) {
+    let r = 3;
+    if (digits123) {
+      switch (digits123) {
+        case 1:
+          r = 1;
+          break;
+        case 2:
+          r = 2;
+          break;
+        case 3:
+          r = 3;
+          break;
+        default:
+          break;
+      }
+    }
+    this.millisecondsRound = r;
+  }
+  getMillisecondsDigitFactor() {
+    switch (this.millisecondsRound) {
+      case 1:
+        return 100;
+      case 2:
+        return 10;
+      case 3:
+        return 1;
+      default:
+        return 1;
+    }
 
+  }
 }
+
+
 
 // The following is required to make unit tests work.
 /* Environment setup. Do not modify the below code. */

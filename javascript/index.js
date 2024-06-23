@@ -24,40 +24,34 @@ function printTime() {
 
 function printMinutes() {
   // ... your code goes here
-  //const valMin = chronometer.getMinutes();//
   const fmto = chronometer.computeTwoDigitNumber(chronometer.getMinutes());
   if (fmto) {
-    let u = fmto[1];
-    let d = fmto[0];
-    document.querySelector("#sphere #minDec").innerText = d;
-    document.querySelector("#sphere #minUni").innerText = u;
+    minDecElement.innerText = fmto[0];
+    minUniElement.innerText = fmto[1];
   }
 }
 
 function printSeconds() {
   // ... your code goes here
-  //const valSec = chronometer.getSeconds();//
   const fmto = chronometer.computeTwoDigitNumber(chronometer.getSeconds());
   if (fmto) {
-    let u = fmto[1];
-    let d = fmto[0];
-    document.querySelector("#sphere #secDec").innerText = d;
-    document.querySelector("#sphere #secUni").innerText = u;
+    secDecElement.innerText = fmto[0];
+    secUniElement.innerText = fmto[1];
   }
 }
 
 // ==> BONUS
 function printMilliseconds() {
   // ... your code goes her
-  const fmto = chronometer.computeTwoDigitNumber(chronometer.getMilliseconds());
+  let divisor = chronometer.getMillisecondsDigitFactor();
+  let ms = chronometer.getMilliseconds() / divisor;
+  const fmto = chronometer.computeTwoDigitNumber(ms);
   if (fmto) {
-    let u = fmto[1];
-    let d = fmto[0];
-    if (document.querySelector("#sphere #milDec").innerText != d){
-      document.querySelector("#sphere #milDec").innerText = d;
+    if (milDecElement.innerText != fmto[0]) {
+      milDecElement.innerText = fmto[0];
     }
-    if (document.querySelector("#sphere #milUni").innerText  !=  u){
-      document.querySelector("#sphere #milUni").innerText = u;
+    if (milUniElement.innerText != fmto[1]) {
+      milUniElement.innerText = fmto[1];
     }
   }
 }
@@ -69,33 +63,24 @@ function printSplit() {
 
 function clearSplits() {
   // ... your code goes here
-  let s = document.querySelectorAll("#splits li");
-  if (s){
-    let count=s.length
-    for (i=count-1;i>-1;i--){
-      s[i].closest("#splits").removeChild(s[i]);
-    }
-  }
+  //document.querySelector("#splits").innerHTML = "";
+  splitsElement.innerHTML = "";
 }
 
 function setStopBtn() {
   // ... your code goes here
+  chronometer.stop();
   btnLeftElement.className = 'btn start';
   btnLeftElement.innerText = 'START';
   btnRightElement.className = 'btn reset';
   btnRightElement.innerText = 'RESET';
-  chronometer.stop();
 }
 
 function setSplitBtn() {
   // ... your code goes here
-  let spl = document.querySelector('#splits');
-  if (spl) {
-    let texto = chronometer.split();
-    let lix = document.createElement('li');
-    lix.innerText = texto;
-    spl.appendChild(lix);
-  }
+  let li = document.createElement('li');
+  li.innerText = chronometer.split();
+  splitsElement.appendChild(li);
 }
 
 function setStartBtn() {
@@ -104,6 +89,7 @@ function setStartBtn() {
   btnLeftElement.innerText = "STOP";
   btnRightElement.className = "btn split";
   btnRightElement.innerText = "SPLIT";
+  chronometer.setMillisecondsDigit(2);
   chronometer.start(printTime);
 }
 
