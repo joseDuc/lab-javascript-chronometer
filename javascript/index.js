@@ -17,8 +17,8 @@ let corriendo = false;
 
 function printTime() {
   // ... your code goes here
-  printSeconds();
   printMinutes();
+  printSeconds();
   printMilliseconds();
 }
 

@@ -1,7 +1,7 @@
 class Chronometer {
   constructor() {
     // ... your code goes here
-    this.tiempoActual =0 ;
+    this.tiempoActual =0;//3589999 ;
     this.idIntervalo = null;
   }
 
@@ -20,10 +20,9 @@ class Chronometer {
 
   getMinutes() {
     // ... your code goes here
-    let m = 0;
-    m = Math.floor((this.tiempoActual / 1000) / 60);
+    let m = Math.floor((this.tiempoActual / 1000) / 60);
     if (m > 59) {
-      m = 0;//reinicia minutero
+      //m = 0;//reinicia minutero
       this.tiempoActual = 0; //limite crono=1hora => reiniciar contador
     }
     return m;
@@ -31,10 +30,9 @@ class Chronometer {
 
   getSeconds() {
     // ... your code goes here
-    let s = 0;
-    s = Math.floor((this.tiempoActual / 1000) % 60);
+    let s =  Math.floor((this.tiempoActual / 1000) % 60);
     if (s > 59) {
-      s = 0;;//reinicia segundero
+      //s = 0;;//reinicia segundero
     }
     return s;
   }
@@ -77,13 +75,15 @@ class Chronometer {
 
   split() {
     // ... your code goes here
-    let ms = this.getMilliseconds() / this.getMillisecondsDigitFactor();
+    /*let ms = this.getMilliseconds() / this.getMillisecondsDigitFactor();
     let s = this.getSeconds();
     let m = this.getMinutes();
     let instante = this.computeTwoDigitNumber(m);
     instante += ":" + this.computeTwoDigitNumber(s);
     instante += ":" + this.computeTwoDigitNumber(ms);
     return instante
+    */
+    return `${this.computeTwoDigitNumber(this.getMinutes())}:${this.computeTwoDigitNumber(this.getSeconds())}:${this.computeTwoDigitNumber(this.getMilliseconds())}`;
   }
   setMillisecondsDigit(digits123) {
     let r = 3;
